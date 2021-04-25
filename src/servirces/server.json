@@ -1,0 +1,16 @@
+{
+    "BeckEnd":[
+        {"id":1,"image":"https://miro.medium.com/max/5120/1*mp91A9RzagntGGjBnwu4Yw.png","title":"Node JS" ,"description":"ferramenta de Desenvolvimeto para beckend...", "subjects":9,"tips":4,"projects":1},
+        {"id":2,"image":"https://miro.medium.com/max/5120/1*mp91A9RzagntGGjBnwu4Yw.png","title":"React JS" ,"description":"ferramenta de Desenvolvimeto para beckend...", "subjects":6,"tips":4,"projects":1},
+        {"id":3,"image":"https://miro.medium.com/max/5120/1*mp91A9RzagntGGjBnwu4Yw.png","title":"React Native" ,"description":"ferramenta de Desenvolvimeto para beckend...", "subjects":3,"tips":6,"projects":1},
+        {"id":4,"image":"https://miro.medium.com/max/5120/1*mp91A9RzagntGGjBnwu4Yw.png","title":"MongoDb" ,"description":"ferramenta de Desenvolvimeto para beckend...", "subjects":3,"tips":4,"projects":0},
+        {"id":5,"image":"https://miro.medium.com/max/5120/1*mp91A9RzagntGGjBnwu4Yw.png","title":"Ejs" ,"description":"ferramenta de Desenvolvimeto para beckend...", "subjects":2,"tips":7,"projects":1},
+        {"id":6,"image":"https://miro.medium.com/max/5120/1*mp91A9RzagntGGjBnwu4Yw.png","title":"Sqlite" ,"description":"ferramenta de Desenvolvimeto para beckend...", "subjects":3,"tips":4,"projects":0},
+        {"id":7,"image":"https://miro.medium.com/max/5120/1*mp91A9RzagntGGjBnwu4Yw.png","title":"RealDb" ,"description":"ferramenta de Desenvolvimeto para beckend...", "subjects":8,"tips":4,"projects":1},
+        {"id":8,"image":"https://miro.medium.com/max/5120/1*mp91A9RzagntGGjBnwu4Yw.png","title":"ruby" ,"description":"ferramenta de Desenvolvimeto para beckend...", "subjects":8,"tips":4,"projects":1},
+        {"id":9,"image":"https://miro.medium.com/max/5120/1*mp91A9RzagntGGjBnwu4Yw.png","title":"c" ,"description":"ferramenta de Desenvolvimeto para beckend...", "subjects":8,"tips":4,"projects":1},
+        {"id":10,"image":"https://miro.medium.com/max/5120/1*mp91A9RzagntGGjBnwu4Yw.png","title":"python" ,"description":"ferramenta de Desenvolvimeto para beckend...", "subjects":8,"tips":4,"projects":1},
+        {"id":11,"image":"https://miro.medium.com/max/5120/1*mp91A9RzagntGGjBnwu4Yw.png","title":"c#" ,"description":"ferramenta de Desenvolvimeto para beckend...", "subjects":8,"tips":4,"projects":1},
+        {"id":12,"image":"https://miro.medium.com/max/5120/1*mp91A9RzagntGGjBnwu4Yw.png","title":"unity" ,"description":"ferramenta de Desenvolvimeto para beckend...", "subjects":8,"tips":4,"projects":1}
+    ]
+}

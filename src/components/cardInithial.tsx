@@ -7,7 +7,7 @@ interface CardPros{
     description: string;
     subjects: number;
     tips: number;
-    projects: number
+    projects: number;
 }
 export function CardsInithial({image,title,description,subjects,tips,projects}:CardPros){
     return(

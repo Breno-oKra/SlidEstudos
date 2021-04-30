@@ -11,22 +11,39 @@
             "conts":[
                 {
                     "id":1,
+                    "category":"dica",
                     "title":"express",
                     "description":"ferramenta lado do servidor",
                     "contCont":["routes","api"]   
                 },
                 {
                     "id":2,
-                    "title":"nodemon",
+                    "category":"materia",
+                    "title":"express",
                     "description":"ferramenta lado do servidor",
-                    "contCont":["chamar nodemon"]   
+                    "contCont":["routes","api"]   
+                },
+                {
+                    "id":3,
+                    "category":"dica",
+                    "title":"express",
+                    "description":"ferramenta lado do servidor",
+                    "contCont":["routes","api"]   
+                },
+                {
+                    "id":4,
+                    "category":"projeto",
+                    "title":"express",
+                    "description":"ferramenta lado do servidor",
+                    "contCont":["routes","api"]   
                 }
+               
             ]
         },
         {
             "id":2,
             "image":"https://velopert.com/wp-content/uploads/2016/03/react.png",
-            "title":"react JS" ,
+            "title":"reactiuu JS" ,
             "description":"ferramenta de Desenvolvimeto para beckend...",
             "subjects":9,
             "tips":4,
@@ -34,7 +51,33 @@
             "conts":[
                 {
                     "id":1,
+                    "category":"projeto",
                     "title":"api de mapas",
+                    "description":"ferramenta lado do servidor",
+                    "contCont":["routes","api"]   
+                }
+            ]
+        },
+        {
+            "id":3,
+            "image":"https://velopert.com/wp-content/uploads/2016/03/react.png",
+            "title":"php logaritomos" ,
+            "description":"ferramenta de Desenvolvimeto para beckend...",
+            "subjects":9,
+            "tips":4,
+            "projects":1,
+            "conts":[
+                {
+                    "id":1,
+                    "category":"projeto",
+                    "title":"api de mapas",
+                    "description":"ferramenta lado do servidor",
+                    "contCont":["routes","api"]   
+                },
+                {
+                    "id":2,
+                    "category":"materia",
+                    "title":"rotas",
                     "description":"ferramenta lado do servidor",
                     "contCont":["routes","api"]   
                 }

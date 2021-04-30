@@ -4,17 +4,20 @@ import {View,Text,StyleSheet,FlatList} from "react-native"
 
 
 interface CardPros{
+    category:string;
     title:string;
     description:string;
     contCont:[string]            
 }
-export function CardSubjects({title,description,contCont}:CardPros){
+export function CardSubjects({title,description,contCont,category}:CardPros){
+    const squareRed = category == "materia"
+    const squareBlue = category == "dica"
+    const squareGreen = category == "projeto"
     return(
-        <View style={styles.container}>
+        <View style={[styles.container,squareRed && styles.materia || squareBlue && styles.dica || squareGreen && styles.projeto]}>
             <View style={styles.containerHeader}>
                 <View style={styles.Header}>
                     <View style={styles.HeaderInfo}>
-                        <View style={styles.RedSquare}></View>
                         <Text style={styles.title}>{title}</Text>
                     </View>
                     <Text style={styles.description}>{description}</Text>
@@ -29,7 +32,7 @@ export function CardSubjects({title,description,contCont}:CardPros){
 
             </View>  
             <View style={styles.boxContents}>
-                <Text>conteudos: </Text>
+                <Text style={styles.textCont}>conteudos: </Text>
                 <FlatList 
                 data={contCont}
                 horizontal
@@ -54,8 +57,7 @@ const styles = StyleSheet.create({
     },
     containerHeader:{
         width:"100%",
-        minHeight:130,
-        maxHeight:150,
+        height:"70%",
         flexDirection:"row",
         padding:5,
         justifyContent:"center",
@@ -71,17 +73,21 @@ const styles = StyleSheet.create({
         marginBottom:10
     },
     title:{
-        fontSize:18,
-        marginLeft:5
+        fontSize:22,
+        marginLeft:5,
     },
     description:{
-        fontSize:16,
-        color:"#848282"
+        fontSize:15,
+        color:"#fff"
     },
     boxContents:{
         width:"100%",
         flexDirection:"row",
         paddingHorizontal:10
+    },
+    textCont:{
+        fontSize:17,
+        color:"#fff"
     },
     flatlist:{
         flexDirection:"row"
@@ -102,7 +108,7 @@ const styles = StyleSheet.create({
     },
     contAlign:{
         width:"60%",
-        height:"90%",
+        height:"80%",
         justifyContent:"center",
         alignItems:"center",
         backgroundColor:"#E4E4E4",
@@ -118,10 +124,18 @@ const styles = StyleSheet.create({
         fontSize:40,
         textAlign:"center", 
     },
-    RedSquare:{
+    square:{
         width:60,
         height:60,
-        backgroundColor:"red"
+    },
+    materia:{
+        backgroundColor:"#E31212",
+    },
+    dica:{
+        backgroundColor:"#0DB2F9"
+    },
+    projeto:{
+        backgroundColor:"#0EFA96"
     }
 })
 

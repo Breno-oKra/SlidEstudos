@@ -6,6 +6,7 @@ import {CardsInithial} from "../components/cardInithial"
 import {RectButton} from "react-native-gesture-handler"
 import { api} from "../servirces/api";
 import { Loading } from "../components/loading";
+import { SnackAlert } from "../components/alert";
 
 
 interface CardPros{
@@ -20,6 +21,7 @@ interface CardPros{
 }
 interface NextPageProps{
   id:string,
+  category: string;
   title:string,
   description : string,
   contCont:[string]
@@ -27,69 +29,88 @@ interface NextPageProps{
 
 
 export function HomeSelect(){
-        const[data,setData] = useState<CardPros[]>([])
+       
+        const[data,setData] = useState<CardPros[]>()
         const[load,setLoad] = useState(true)
         const[loadCont,setLoadCont] = useState(false)
-        const[controlData,setControlData] = useState<boolean>(false)
-        async function getSubjects(){
-          if(!controlData){
-            const newdate = await AsyncStorage.getItem("@slidEstudos:subjects")     
-            if(!newdate){ 
-                setLoad(true)
-            }else{ 
-              const data = newdate != null ? JSON.parse(newdate) : null;
-              setData(data)
-             
-            }
-            setLoad(false)
-            setLoadCont(false)
-            
-          }else{
-            return;
-          }
-          
-        }
+
+       
+        
     
         function scrollDown(distanceFromEnd:Number){
           if(distanceFromEnd < 1)
             return;
           setLoadCont(true)
         }
+     
         const navigation = useNavigation()
         const handlerSubjects = (conts:NextPageProps[],capaSubject:string) => {
-          
           navigation.navigate("Subjects", {conts,capaSubject})
         }
+        async function getSubjects(){
+          setTimeout(async() => {
+            if(!data){
+              const newdate = await AsyncStorage.getItem("@slidEstudos:subjects")
+              console.log(newdate)    
+              if(newdate === null ){ 
+                  setTimeout(() => SnackAlert({title:"Ola Breno, sua Api está Offline e não ah nada salvo no banco de dados interno do dispositivo",color:"#fff",background:"#ff7675"}),10000)
+                  return setLoad(true)
 
-        useEffect(()=> {   
-
-          async function viewBd() {
-            const { data } = await api.get("BeckEnd")
-            try{
-              if(!data){
-                return setLoad(true)      
-              }else{
-                await AsyncStorage.setItem("@slidEstudos:subjects", JSON.stringify(data)) 
-                setControlData(true)
+              }else{ 
+                const data =JSON.parse(newdate);
                 setData(data)
-                setLoad(false)
+               
               }
-            }catch(err){
-              Alert.alert(err)
+              setLoad(false)
+              setLoadCont(false)
+              
+            }else{
+              console.log('breno 2')
+              return;
+              
             }
-           
-          }
+          },2500)
+          
+        }
+        useEffect(()=> { 
+          async function viewBd() {          
+            await fetch("http://192.168.31.22:3333").then(async function(response) {
+              
+              if(response.ok) {
+                const { data } = await api.get("BeckEnd")
+                try{
+                  if(!data){
+                    return setLoad(false)      
+                  }else{
+                    setData(data)
+                    SnackAlert({title:"Ola Breno, sua Api está Online",color:"#fff",background:"#7bed9f"})
+                    await AsyncStorage.setItem("@slidEstudos:subjects", JSON.stringify(data))
+                    setLoad(false)
+                  }
+                }catch(err){
+                  Alert.alert("Erro ao Recuperar Api Usando Banco de Dados Interno do Dispositivo")
+                  getSubjects()
+                }
+                
+              }
+            })
+            .catch(function(error) {
+              SnackAlert({title:"Ola Breno, sua Api está Offline,Tentando Reconectar",color:"#fff",background:"#ff7675"})
+              viewBd()
+            });      
+          }      
           viewBd()
-          const viewDb = setInterval(() => {
-            console.log('breno')
-            getSubjects()
-            clearInterval(viewDb)
-          },1000)  
+          getSubjects()
+          
         },[])
+    
+
         return (
           <SafeAreaView style={styles.container}>
             <Image style={styles.image} source={require("../../assets/headerInithial.png")}/>
+            
             <Text style={styles.title}>Beckend</Text>
+            
             <View style={styles.content}>
               {
                 load ? 

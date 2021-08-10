@@ -1,17 +1,19 @@
 import { useNavigation, useRoute } from "@react-navigation/core"
 import React, { useState } from "react"
-import {View,TouchableOpacity, Image,StyleSheet,FlatList,Modal,Text,Pressable,KeyboardAvoidingView,TouchableWithoutFeedback} from "react-native"
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import {View,TouchableOpacity, Image,StyleSheet,FlatList,Modal,Text,KeyboardAvoidingView,TouchableWithoutFeedback} from "react-native"
+import RadioForm from 'react-native-simple-radio-button';
 import { TextInput } from "react-native-gesture-handler"
 import { CardSubjects } from "../components/cardSubjects"
 import Icon from "react-native-vector-icons/MaterialIcons"
-import { Modals } from "../components/modal"
+import Swipeable from "react-native-gesture-handler/Swipeable"
+import { LeftActions } from "../components/Actions";
 interface NextPageProps{
     id:string,
     category:string;
     title:string,
     description : string,
-    contCont:[string]
+    contCont:[string],
+    slides:SlideProps[]
 }
 interface Params{
     conts:NextPageProps[]
@@ -20,29 +22,52 @@ interface Params{
 interface SubjectCapa{
     capaSubject:string
 }
+interface SlideProps{
+    key:number;
+    title:string,
+    image:string,
+    text: string
+}
+
 export function Subject(){
     const routes = useRoute()
-    const {conts} = routes.params as Params
     const navigation = useNavigation()
-    const {capaSubject} = routes.params as SubjectCapa
+
+    const {conts} = routes.params as Params
     const data = conts
+    const[search,setSearch] = useState<string>()
     const[filterDate,setFilterDate] = useState(conts)
+    const {capaSubject} = routes.params as SubjectCapa
     const [modalVisible, setModalVisible] = useState(false);
     const[filter,setFilter] = useState<number>(0)
 
+    function filterSearch(){
+        const content = data.filter((item) => {
+            const filtered = item.contCont.find(items => items.toUpperCase().indexOf(String(search)) !== -1)
+            if(filtered !== undefined){
+                return item
+            }else{
+                const title = item.title.toUpperCase().indexOf(String(search))
+                if(title !== -1){
+                    return item
+                }
+            }
+            
+        });
+        
+        const agroup = [
+            ...content
+        ]
+        setFilterDate(agroup)
+        
+    }
     function filteredConts(filter:string){
         if(filter == "todos"){
             setFilter(0)
             return setFilterDate(data)
         }
         const filtered = data.filter(item => item.category.includes(filter))
-       
-        if(filter == 'dica')
-            setFilter(1)
-        if(filter == 'materia')
-            setFilter(2)
-        if(filter == "projeto")
-            setFilter(3)
+        filter == 'dica' && setFilter(1) || filter == 'materia' && setFilter(1) || filter == 'projeto' && setFilter(1)
         setFilterDate(filtered)
         setModalVisible(false)
 
@@ -54,20 +79,29 @@ export function Subject(){
         {label:"Projetos", value:"projeto"}
     ]
     function content(cont:NextPageProps){
-        navigation.navigate("Contents",cont.contCont)
+        navigation.navigate("Contents",cont.slides)
     }
-
     return(
         <View style={styles.container}>
+             <TouchableOpacity  onPress={() => navigation.goBack()} style={styles.icon}>
+                    <Icon name="chevron-left" size={90} color="#fff"   />
+            </TouchableOpacity>
             <View style={styles.header}>
-                <Image style={styles.image} source={{uri:`${capaSubject}`}} />
-                
+                <Image style={styles.image} source={{uri:`${capaSubject}`}} /> 
             </View>
             <View style={styles.boxCont}>
                 <View style={styles.search}>
                     <View style={styles.boxSearch}>
-                        <TextInput style={styles.input} placeholder="breno" />
-                        <Icon name="search" size={30} color="grey" style={styles.icons} />
+                        <TextInput style={styles.input} placeholder="breno" onChangeText={(text) => {
+                            setSearch(text.toUpperCase())
+                            if(search == undefined || search.length <= 1){
+                                setFilterDate(data)
+                            }
+                        }   
+                        } />
+                        <TouchableOpacity onPress={filterSearch} style={styles.icons}>
+                            <Icon  name="search" size={30} color="grey"/>
+                        </TouchableOpacity>  
                     </View>
                     <TouchableOpacity style={styles.iconsFilter} onPress={() => setModalVisible(true)}>
                         <Icon name="filter-alt" size={40} color="grey" />
@@ -77,10 +111,12 @@ export function Subject(){
                 data={filterDate}
                 keyExtractor={(item) => item.id}
                 renderItem={({item}) => (
-                    <TouchableOpacity onPress={() => content(item)} style={styles.content}>
-                        <CardSubjects  title={item.title} description={item.description} contCont={item.contCont} category={item.category}/>
-                    </TouchableOpacity>
-                        
+                    <Swipeable
+                    renderLeftActions={() => <LeftActions/>}
+                    onSwipeableLeftOpen={() => {content(item)}}
+                    containerStyle={styles.content}>
+                        <CardSubjects  title={item.title} description={item.description} contCont={item.contCont} category={item.category} slides={item.slides.length}/>
+                    </Swipeable>                    
                 )}
                 showsVerticalScrollIndicator={false}
                 />
@@ -124,6 +160,14 @@ const styles = StyleSheet.create({
         width:"100%",
         height:250
     },
+    icon:{
+        position:"absolute",
+        top:0,
+        left:0,
+        width:100,
+        height:90,
+        zIndex:3
+    },
     image:{
         width:"100%",
         height:"100%",
@@ -133,13 +177,6 @@ const styles = StyleSheet.create({
         marginTop:-80,
         width:"100%",
         height:"80%",
-        alignItems:"center", 
-    },
-    contFlat:{
-        width:"100%",
-        height:300,
-        backgroundColor:"blue",
-        padding:20
     },
     title:{
         fontSize:25,
@@ -185,11 +222,10 @@ const styles = StyleSheet.create({
         fontSize:17
     },
     content:{
-        width:"100%",
         minHeight:140,
-        maxHeight:180,
-        alignItems:"center",
-        marginBottom:20
+        maxHeight:190,
+        marginBottom:20,
+        backgroundColor:"#079992",
     },
     containerModal:{
         flex:1,

@@ -11,7 +11,12 @@
           "category": "materia",
           "title": "Progress",
           "description": "codigo usado para pegar informações dos processos",
-          "contCont": ["argv", "usuario pc", "process", "rocketseat"],
+          "contCont": [
+            "argv",
+            "usuario pc",
+            "process",
+            "rocketseat"
+          ],
           "slides": [
             {
               "key": 1,
@@ -26,12 +31,16 @@
           "category": "dica",
           "title": "type Modulo PackageJSON",
           "description": "assim podemos usar o import e from igual em framehorks com react etc.",
-          "contCont": ["type:modules", "JSON", "jogo da velha"],
+          "contCont": [
+            "type:modules",
+            "JSON",
+            "jogo da velha"
+          ],
           "slides": [
             {
               "key": 1,
               "title": "como usar",
-              "image": "https://www.mediafire.com/convkey/b127/1jjl1lmzdt4rljg9g.jpg",
+              "image": "https://www.mediafire.com/convkey/b127/1jjl1lmzdt4rljgzg.jpg",
               "text": "somente escrever type:modules e a magica acontece"
             }
           ]
@@ -127,7 +136,10 @@
           "category": "materia",
           "title": "Limpeza e Tratamento de Dados",
           "description": "como tratar dados de um arquivo scv, editando,limpado etc.",
-          "contCont": ["Pacote Pandas", "dados"],
+          "contCont": [
+            "Pacote Pandas",
+            "dados"
+          ],
           "slides": [
             {
               "key": 1,
@@ -145,47 +157,6 @@
               "key": 3,
               "title": "sem Sep",
               "image": "https://www.mediafire.com/convkey/c4f4/cygqxz48tj0mk7czg.jpg",
-              "text": "nada complexo"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "image": "https://jonathasguerra.com.br/blog/wp-content/uploads/2017/01/laravel-covercover-1140x640.jpg",
-      "title": "LARAVEL",
-      "description": "Framework para desenvolvimento do beckend junto ao front",
-      "conts": [
-        {
-          "id": 1,
-          "category": "materia",
-          "title": "subir aplicação",
-          "description": "criar arquivo dentro do projeto com comandos",
-          "contCont": ["run server", "artisan", "serve"],
-          "slides": [
-            {
-              "key": 1,
-              "title": "subindo o server",
-              "image": "https://www.mediafire.com/convkey/3ba3/0rlekgnajsqa16k9g.jpg",
-              "text": "nada complexo"
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "category": "materia",
-          "title": "Criar arquivo dentro do projeto",
-          "description": "criar arquivo dentro do projeto com comandos",
-          "contCont": [
-            "criação de arquivos dentro da aplicação",
-            "php artisan make"
-          ],
-          "slides": [
-            {
-              "key": 1,
-              "title": "Criar arquivo dentro do projeto",
-              "image": "https://www.mediafire.com/convkey/0b05/l3d3820laxv5cgi9g.jpg",
               "text": "nada complexo"
             }
           ]

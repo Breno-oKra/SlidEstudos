@@ -14,9 +14,6 @@ interface CardPros{
   image: string;
   title:string;
   description: string;
-  subjects: number;
-  tips: number;
-  projects: number;
   conts: NextPageProps[]
 }
 interface NextPageProps{
@@ -24,34 +21,49 @@ interface NextPageProps{
   category: string;
   title:string,
   description : string,
-  contCont:[string]
+  contCont:[string],
+  slides:SlideProps[]
 }
-
-
+interface SlideProps{
+  key:number;
+  title:string,
+  image:string,
+  text: string
+}
+interface CalcProps{
+  
+}
 export function HomeSelect(){
        
         const[data,setData] = useState<CardPros[]>()
         const[load,setLoad] = useState(true)
         const[loadCont,setLoadCont] = useState(false)
 
-       
-        
-    
+        const navigation = useNavigation()
+        const handlerSubjects = (conts:NextPageProps[],capaSubject:string) => {
+          navigation.navigate("Subjects", {conts,capaSubject})
+        }
+        function calcMaterias(data:NextPageProps[]){
+          const materia = data.filter((item) => item.category === 'materia')
+          const dica = data.filter((item) => item.category === 'dica')
+          const projeto = data.filter((item) => item.category === 'projeto')
+
+          return{
+            materia:materia.length,
+            dica:dica.length,
+            projeto:projeto.length
+          }
+        }
         function scrollDown(distanceFromEnd:Number){
           if(distanceFromEnd < 1)
             return;
           setLoadCont(true)
         }
-     
-        const navigation = useNavigation()
-        const handlerSubjects = (conts:NextPageProps[],capaSubject:string) => {
-          navigation.navigate("Subjects", {conts,capaSubject})
-        }
         async function getSubjects(){
           setTimeout(async() => {
             if(!data){
               const newdate = await AsyncStorage.getItem("@slidEstudos:subjects")
-              console.log(newdate)    
+    
               if(newdate === null ){ 
                   setTimeout(() => SnackAlert({title:"Ola Breno, sua Api está Offline e não ah nada salvo no banco de dados interno do dispositivo",color:"#fff",background:"#ff7675"}),10000)
                   return setLoad(true)
@@ -65,7 +77,6 @@ export function HomeSelect(){
               setLoadCont(false)
               
             }else{
-              console.log('breno 2')
               return;
               
             }
@@ -103,8 +114,6 @@ export function HomeSelect(){
           getSubjects()
           
         },[])
-    
-
         return (
           <SafeAreaView style={styles.container}>
             <Image style={styles.image} source={require("../../assets/headerInithial.png")}/>
@@ -120,7 +129,7 @@ export function HomeSelect(){
               data={data}
               renderItem={({item}) => (
                 <RectButton style={styles.btnAvance} onPress={() => handlerSubjects(item.conts,item.image)}>
-                  <CardsInithial image={item.image} title={item.title} description={item.description} subjects={item.subjects} tips={item.tips} projects={item.projects} />
+                  <CardsInithial image={item.image} title={item.title} description={item.description} subjects={calcMaterias(item.conts)}  />
                 </RectButton>
               )}
               contentContainerStyle={styles.contFlatList}

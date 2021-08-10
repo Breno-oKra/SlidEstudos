@@ -5,11 +5,15 @@ interface CardPros{
     image: string;
     title:string;
     description: string;
-    subjects: number;
-    tips: number;
-    projects: number;
+    subjects:{
+        materia:number;
+        dica:number;
+        projeto:number
+    };
+
 }
-export function CardsInithial({image,title,description,subjects,tips,projects}:CardPros){
+export function CardsInithial({image,title,description,subjects}:CardPros){
+    const data = subjects
     return(
         <View style={styles.container}>
             <View style={styles.boxHeader}>
@@ -25,15 +29,15 @@ export function CardsInithial({image,title,description,subjects,tips,projects}:C
             <View style={styles.conts}>
                 <View style={styles.contAlign}>
                     <Text style={styles.redSquare}></Text>
-                    <Text>{subjects} materias</Text>
+                    <Text>{data.materia} materias</Text>
                 </View>
                 <View style={styles.contAlign}>
                     <Text style={styles.blueSquare}></Text>
-                    <Text>{tips} dicas</Text>
+                    <Text>{data.dica} dicas</Text>
                 </View>
                 <View style={styles.contAlign}>
                     <Text style={styles.greenSquare}></Text>
-                    <Text>{projects} projetos</Text>
+                    <Text>{data.projeto} projetos</Text>
                 </View>
             </View>
         </View>
